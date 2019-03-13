@@ -1,0 +1,65 @@
+<mat-sidenav-container class="sidenav-container">
+
+	<mat-sidenav #drawer 
+		class="sidenav" 
+		fixedInViewport="true"
+		[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+		[mode]="(isHandset$ | async) ? 'over' : 'side'"
+		>
+		<mat-toolbar color="primary">
+			<!-- <button mat-icon-button (click)="isExpanded = !isExpanded">
+				<mat-icon>home</mat-icon>
+			</button> -->
+			<h2>Menu</h2>
+		</mat-toolbar>
+
+		<!-- draw the menu items -->
+		<mat-nav-list>
+
+			<!-- parent menu item -->
+			<mat-list-item (click)="parent_click()" class="parent">
+				<span class="full-width" *ngIf="isExpanded || isShowing">Parent Menu</span>
+				<!-- has user opened sidebar or moused in -->
+				<mat-icon mat-list-icon>home</mat-icon>
+				<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more
+				</mat-icon>
+			</mat-list-item>
+
+			<!-- first level menu -->
+			<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+				<!-- has user opened sidebar or moused in -->
+				<a mat-list-item [routerLink]="['/one']" (click)="subMenu_click()">Item 1</a>
+				<a mat-list-item [routerLink]="['/two']" (click)="subMenu_click()">Item 2</a>
+
+				<!-- Nested Menu -->
+				<mat-list-item (click)="subparent_click()" class="parent">
+					<span class="full-width" *ngIf="isExpanded || isShowing">Nested Menu</span>
+					<!-- has user opened sidebar or moused in -->
+					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubSubMenu}" *ngIf="isExpanded || isShowing">
+						expand_more</mat-icon>
+				</mat-list-item>
+
+				<!-- second level menu -->
+				<div class="submenu" [ngClass]="{'expanded' : showSubSubMenu}" *ngIf="isShowing || isExpanded">
+					<!-- has user opened sidebar or moused in -->
+					<a mat-list-item [routerLink]="['/three']" (click)="subSubMenu_click()">Item 3</a>
+					<mat-list-item>SubSubmenu Item 2</mat-list-item>
+				</div>
+			</div>
+		</mat-nav-list>
+
+	</mat-sidenav>
+
+	<mat-sidenav-content>
+		<!-- drawing the hamburger button -->
+		<mat-toolbar color="primary">
+			<button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+				<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+			</button>
+			<span>maxtrillion</span>
+		</mat-toolbar>
+
+		<!-- Add Content Here and starts to add dark background-->
+		<ng-content></ng-content>
+	</mat-sidenav-content>
+</mat-sidenav-container>

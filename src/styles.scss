@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html,
+body {
+    height: 100%;   /* so that backdrop shows full height */
+}
+
+/* so no spacing around nav */
+body {
+    margin: 0;
+}
+
+// style from https://www.thecodecampus.de/blog/material-2-sticky-footer-mat-sidenav/
+.info-card {
+    margin: 1vh 1.7vw;
+    color: #7b2f94;
+  }
+  
