@@ -38,27 +38,37 @@ export class MainNavComponent {
   // click on VERY top left house icon to open and close sidenav
   // if you open it, then stays open
   // if you close it, then opens and closes with mouse entry/exit
-  isExpanded = true;  // i.e. sidenav opened/closed
+  //isExpanded = true;  // i.e. sidenav opened/closed
 
   // if sidenav is "partially" closed, as soon as you mouse over partically closed sidenave, then set this to true
   // and when you mouse out of the sidenav (partially closed or open), sidenave goes back to partially closed
-  isShowing = false;
+  // isShowing = false;
 
   /*
-    When startSideOpen = true, include as part of:
+    ~~~~~~~~~~ CONFIGURATION ~~~~~~~~~~~~~~~~~
+
+    When startSideOpen = true, include as part of (in main-nav.component.html):
     <mat-sidenav #drawer
     
-    [opened]="!(isHandset$ | async)"
+        [opened]="!(isHandset$ | async)"
 
+    so we let the breakpoint handle the display
+
+  FULL CODE IS:
+  	<mat-sidenav #drawer 
+		class="sidenav" 
+		fixedInViewport="true"
+		[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+		[mode]="(isHandset$ | async) ? 'over' : 'side'"
+		[opened]="!(isHandset$ | async)"
+    >
+    
   */
-  startSideOpen: boolean = false;
+  startSideOpen = true;
 
-  showSubmenu: boolean = false;
-  showSubSubMenu: boolean = false;
+  showSubmenu = false;
+  showSubSubMenu = false;
 
-  ngOnInit() {
-
-  }
   parent_click() {
     this.showSubmenu = !this.showSubmenu;
   }
@@ -71,8 +81,7 @@ export class MainNavComponent {
   subMenu_click() {
     if (!this.startSideOpen) {
       this.drawer.close();
-    }
-    else {
+    } else {
       this.isHandset$.subscribe(x => {
         if (x) {
           this.drawer.close();
@@ -83,8 +92,7 @@ export class MainNavComponent {
   subSubMenu_click() {
     if (!this.startSideOpen) {
       this.drawer.close();
-    }
-    else {
+    } else {
       this.isHandset$.subscribe(x => {
         if (x) {
           this.drawer.close();

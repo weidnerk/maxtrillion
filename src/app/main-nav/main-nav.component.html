@@ -5,6 +5,7 @@
 		fixedInViewport="true"
 		[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
 		[mode]="(isHandset$ | async) ? 'over' : 'side'"
+		[opened]="!(isHandset$ | async)"
 		>
 		<mat-toolbar color="primary">
 			<!-- <button mat-icon-button (click)="isExpanded = !isExpanded">
@@ -18,29 +19,29 @@
 
 			<!-- parent menu item -->
 			<mat-list-item (click)="parent_click()" class="parent">
-				<span class="full-width" *ngIf="isExpanded || isShowing">Parent Menu</span>
+				<span class="full-width">Parent Menu</span>
 				<!-- has user opened sidebar or moused in -->
 				<mat-icon mat-list-icon>home</mat-icon>
-				<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more
+				<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" >expand_more
 				</mat-icon>
 			</mat-list-item>
 
 			<!-- first level menu -->
-			<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+			<div class="submenu" [ngClass]="{'expanded' : showSubmenu}">
 				<!-- has user opened sidebar or moused in -->
 				<a mat-list-item [routerLink]="['/one']" (click)="subMenu_click()">Item 1</a>
 				<a mat-list-item [routerLink]="['/two']" (click)="subMenu_click()">Item 2</a>
 
 				<!-- Nested Menu -->
 				<mat-list-item (click)="subparent_click()" class="parent">
-					<span class="full-width" *ngIf="isExpanded || isShowing">Nested Menu</span>
+					<span class="full-width" >Nested Menu</span>
 					<!-- has user opened sidebar or moused in -->
-					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubSubMenu}" *ngIf="isExpanded || isShowing">
+					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubSubMenu}">
 						expand_more</mat-icon>
 				</mat-list-item>
 
 				<!-- second level menu -->
-				<div class="submenu" [ngClass]="{'expanded' : showSubSubMenu}" *ngIf="isShowing || isExpanded">
+				<div class="submenu" [ngClass]="{'expanded' : showSubSubMenu}">
 					<!-- has user opened sidebar or moused in -->
 					<a mat-list-item [routerLink]="['/three']" (click)="subSubMenu_click()">Item 3</a>
 					<mat-list-item>SubSubmenu Item 2</mat-list-item>
